@@ -1,0 +1,7 @@
+Sentiment Analysis Model Information
+===================================
+
+Model type: LogisticRegression
+Model accuracy: 85.59%
+Number of features: 5000
+Classes: negative, neutral, positive

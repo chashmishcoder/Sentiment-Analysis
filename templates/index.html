@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Text Sentiment Prediction</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: auto; }
+        .input-section, .result-section { display: inline-block; vertical-align: top; width: 45%; }
+        .input-section { margin-right: 5%; }
+        input, button { display: block; margin: 10px 0; padding: 5px; }
+        img { max-width: 100%; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Text Sentiment Prediction</h1>
+        <div class="input-section">
+            <label>Upload your CSV file</label>
+            <form method="post" action="/predict" enctype="multipart/form-data">
+                <input type="file" name="file" accept=".csv">
+                <label>Text for Prediction</label>
+                <input type="text" name="text" placeholder="Enter text...">
+                <button type="submit">Predict</button>
+            </form>
+        </div>
+        <div class="result-section">
+            <h3>Prediction Result</h3>
+            <p id="prediction">No prediction yet</p>
+            <h3>Graph Result</h3>
+            <img id="graph" src="" alt="Sentiment Graph">
+        </div>
+    </div>
+    <script>
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const textInput = document.querySelector('input[name="text"]').value;
+            if (!textInput && !formData.get('file')) {
+                document.getElementById('prediction').textContent = 'Error: Please provide text or upload a file';
+                return;
+            }
+            for (let [key, value] of formData.entries()) {
+                console.log(key, value);
+            }
+            fetch('http://localhost:5001/predict', { method: 'POST', body: formData })
+                .then(response => {
+                    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Response data:', data);
+                    document.getElementById('prediction').textContent = JSON.stringify(data.prediction);
+                    if (data.graph) document.getElementById('graph').src = data.graph + '?' + new Date().getTime(); // Avoid caching
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('prediction').textContent = 'Error: ' + error.message;
+                });
+        });
+    </script>
+</body>
+</html>
