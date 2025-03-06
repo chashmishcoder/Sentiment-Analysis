@@ -6,7 +6,7 @@ import pandas as pd
 import os
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app)  # Update this later with the frontend URL
 
 # Load the pre-trained model and vectorizer
 try:
@@ -18,13 +18,13 @@ except Exception as e:
 
 @app.route('/')
 def home():
-    return "Sentiment Analysis API"  # Simplified to return plain text (remove render_template if not using HTML)
+    return "Sentiment Analysis API"
 
 @app.route('/predict', methods=['POST'])
 def predict():
     print("Received predict request")
-    print("Form data:", request.form)  # Debug print
-    print("Files:", request.files)     # Debug print
+    print("Form data:", request.form)
+    print("Files:", request.files)
 
     if 'file' in request.files and request.files['file'].filename:
         file = request.files['file']
@@ -40,7 +40,7 @@ def predict():
         text_data = [text] if text else []
 
     print(f"Text data: {text_data}")
-    if len(text_data) == 0:  # Check length instead of truth value
+    if len(text_data) == 0:
         return jsonify({'error': 'No text provided'}), 400
 
     # Transform text data using the vectorizer
@@ -68,5 +68,5 @@ def predict():
     }), 200
 
 if __name__ == '__main__':
-    port = int(os.getenv('PORT', 5001))  # Use port 5001 to match your setup
+    port = int(os.getenv('PORT', 5001))
     app.run(host='0.0.0.0', port=port, debug=True)
