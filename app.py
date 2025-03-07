@@ -6,7 +6,8 @@ import pandas as pd
 import os
 
 app = Flask(__name__)
-CORS(app)  # Update this later with the frontend URL
+# Allow CORS for local frontend (http://localhost:3000) and later the deployed frontend
+CORS(app, resources={r"/predict": {"origins": ["http://localhost:3000"]}})
 
 # Load the pre-trained model and vectorizer
 try:
