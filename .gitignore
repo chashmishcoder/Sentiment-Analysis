@@ -1,2 +1,3 @@
 gradient-ui
 .vercel
+tfidf_vectorizer.joblib
