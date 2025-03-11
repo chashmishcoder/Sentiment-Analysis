@@ -4,10 +4,20 @@ import joblib
 import numpy as np
 import pandas as pd
 import os
+import requests
 
 app = Flask(__name__)
 # Allow CORS for local frontend (http://localhost:3000) and later the deployed frontend
 CORS(app, resources={r"/predict": {"origins": ["http://localhost:3000"]}})
+
+def download_file(url, dest):
+    if not os.path.exists(dest):
+        response = requests.get(url)
+        with open(dest, "wb") as f:
+            f.write(response.content)
+
+# Download model and vectorizer if not present
+download_file("https://drive.google.com/file/d/10kEOA6Jjs1-Hmm7bXx0dtHbgp1C3aUbI/view?usp=sharing", "tfidf_vectorizer.joblib")
 
 # Load the pre-trained model and vectorizer
 try:
