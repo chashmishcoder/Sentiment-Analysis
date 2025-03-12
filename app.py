@@ -4,11 +4,20 @@ import joblib
 import numpy as np
 import pandas as pd
 import os
-import requests
+import gdown
 
 app = Flask(__name__)
 # Allow CORS for local frontend (http://localhost:3000) and later the deployed frontend
-CORS(app, resources={r"/predict": {"origins": ["http://localhost:3000"]}})
+CORS(app, resources={r"/predict": {"origins": "http://localhost:3000"}})
+
+# Google Drive file ID for tfidf_vectorizer.joblib
+vectorizer_drive_id = "10kEOA6Jjs1-Hmm7bXx0dtHbgp1C3aUbI"
+vectorizer_path = "tfidf_vectorizer.joblib"
+
+# Check if vectorizer file exists, otherwise download it
+if not os.path.exists(vectorizer_path):
+    print(f"{vectorizer_path} not found. Downloading from Google Drive...")
+    gdown.download(f"https://drive.google.com/uc?export=download&id={vectorizer_drive_id}", vectorizer_path, quiet=False)
 
 def download_file(url, dest):
     if not os.path.exists(dest):
@@ -22,10 +31,10 @@ download_file("https://drive.google.com/file/d/10kEOA6Jjs1-Hmm7bXx0dtHbgp1C3aUbI
 # Load the pre-trained model and vectorizer
 try:
     model = joblib.load('sentiment_model.joblib')
-    vectorizer = joblib.load('tfidf_vectorizer.joblib')
-    print("Model and vectorizer loaded successfully")
+    vectorizer = joblib.load(vectorizer_path)
+    print("✅ Model and vectorizer loaded successfully.")
 except Exception as e:
-    print(f"Error loading model or vectorizer: {e}")
+    print(f"❌ Error loading model or vectorizer: {e}")
 
 @app.route('/')
 def home():
@@ -33,9 +42,9 @@ def home():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    print("Received predict request")
-    print("Form data:", request.form)
-    print("Files:", request.files)
+    print("📩 Received predict request")
+    print("📄 Form data:", request.form)
+    print("📂 Files:", request.files)
 
     if 'file' in request.files and request.files['file'].filename:
         file = request.files['file']
@@ -50,33 +59,38 @@ def predict():
         text = request.form.get('text', '').strip()
         text_data = [text] if text else []
 
-    print(f"Text data: {text_data}")
+    print(f"📜 Text data: {text_data}")
     if len(text_data) == 0:
         return jsonify({'error': 'No text provided'}), 400
 
-    # Transform text data using the vectorizer
-    X = vectorizer.transform(text_data)
-    # Predict sentiment
-    predictions = model.predict(X)
-    print(f"Predictions: {predictions}")
+    try:
+        # Transform text data using the vectorizer
+        X = vectorizer.transform(text_data)
+        # Predict sentiment
+        predictions = model.predict(X)
+        print(f"🔮 Predictions: {predictions}")
 
-    # Define sentiment label mapping
-    sentiment_map = {0: "negative", 1: "positive", 2: "neutral"}
+        # Define sentiment label mapping
+        sentiment_map = {0: "negative", 1: "positive", 2: "neutral"}
 
-    # Generate distribution
-    total = len(predictions)
-    distribution = {
-        'positive': (predictions == 1).sum() / total if total > 0 else 0,
-        'neutral': (predictions == 2).sum() / total if total > 0 else 0,
-        'negative': (predictions == 0).sum() / total if total > 0 else 0
-    }
+        # Generate distribution
+        total = len(predictions)
+        distribution = {
+            'positive': (predictions == 1).sum() / total if total > 0 else 0,
+            'neutral': (predictions == 2).sum() / total if total > 0 else 0,
+            'negative': (predictions == 0).sum() / total if total > 0 else 0
+        }
 
-    # Prepare response with mapped sentiment and distribution
-    result = [sentiment_map.get(p, str(p)) for p in predictions]
-    return jsonify({
-        'prediction': result[0] if len(result) == 1 else result,
-        'distribution': distribution
-    }), 200
+        # Prepare response with mapped sentiment and distribution
+        result = [sentiment_map.get(p, str(p)) for p in predictions]
+        return jsonify({
+            'prediction': result[0] if len(result) == 1 else result,
+            'distribution': distribution
+        }), 200
+
+    except Exception as e:
+        print(f"❌ Error processing request: {e}")
+        return jsonify({'error': 'Internal server error'}), 500
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5001))
