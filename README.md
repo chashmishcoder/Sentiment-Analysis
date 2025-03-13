@@ -135,7 +135,7 @@ curl -X POST -F "text=I love this project!" http://127.0.0.1:5001/predict
 ## UI
 
 ### Prediction Page
-![Visualization](./ss_ui.png)
+![Visualization](./ui_ss.png)
 
 
 ![Alt Text]([https://i.imgur.com/yourgif.gif](https://imgur.com/a/BQ6EhWe))
