@@ -140,6 +140,9 @@ curl -X POST -F "text=I love this project!" http://127.0.0.1:5001/predict
 ### Prediction Page
 ![Prediction Page](path/to/prediction_page_screenshot.png)
 
+![Alt Text]([https://i.imgur.com/yourgif.gif](https://imgur.com/a/BQ6EhWe))
+
+
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
