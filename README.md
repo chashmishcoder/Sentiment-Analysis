@@ -51,64 +51,6 @@ This is a Sentiment Analysis API built with Flask. It uses a pre-trained machine
 
 2. The API will be available at [http://127.0.0.1:5001](https://127.0.0.1:5001)
 
-Sure! You can add screenshots to your README.md file by including image links. Here is an updated version of your README.md file with placeholders for the screenshots:
-
-```markdown
-# Sentiment Analysis App
-
-This Repo contains my NLP project on Sentiment Analysis.
-
-## Features
-
-- Predict sentiment from text data
-- Handle CSV file uploads with text data
-- Provide sentiment distribution
-- Generate a bar graph of sentiment distribution
-
-## Requirements
-
-- Python 3.6+
-- Flask
-- Flask-CORS
-- pandas
-- scikit-learn
-- matplotlib
-- joblib
-- gdown
-- requests
-
-## Installation
-
-1. Clone the repository:
-
-   ```sh
-   git clone https://github.com/yourusername/sentiment-analysis-app.git
-   cd sentiment-analysis-app
-   ```
-
-2. Create a virtual environment and activate it:
-
-   ```sh
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
-
-3. Install the required packages:
-
-   ```sh
-   pip install -r requirements.txt
-   ```
-
-## Usage
-
-1. Run the Flask application:
-
-   ```sh
-   python app.py
-   ```
-
-2. The API will be available at `http://127.0.0.1:5001`.
-
 ## API Endpoints
 
 ### `GET /`
