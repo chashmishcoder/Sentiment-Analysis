@@ -10,6 +10,23 @@ This project is a sentiment analysis application built using Python and Flask fo
 - Provide sentiment distribution
 - Generate a bar graph of sentiment distribution
 
+## Directory Structure
+Sentiment-Analysis/
+├── .vercel/                    # Configuration files for Vercel deployment
+├── gradient-ui/                # Frontend code built with Next.js
+├── static/                     # Static files (e.g., images, CSS)
+├── templates/                  # HTML templates for Flask
+├── venv/                       # Python virtual environment
+├── .gitattributes              # Git attributes configuration
+├── .gitignore                  # Specifies files to be ignored by Git
+├── README.md                   # Project documentation
+├── Sentiment_analysis.ipynb    # Jupyter Notebook for sentiment analysis
+├── app.py                      # Flask application entry point
+├── model_info.txt              # Information about the sentiment model
+├── requirements.txt            # Python dependencies
+└── sentiment_model.joblib      # Serialized sentiment analysis model
+
+
 ## Requirements
 
 - Python 3.6+
