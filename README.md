@@ -1,7 +1,7 @@
 
 # Sentiment Analysis App
 
-This is a Sentiment Analysis API built with Flask. It uses a pre-trained machine learning model to predict the sentiment of text data. The vectorizer is downloaded from Google Drive because of size constraint.
+This project is a sentiment analysis application built using Python and Flask for the backend and Next.js for the frontend. It analyzes text input or CSV files to predict sentiment (positive, negative, or neutral) and provides a distribution of sentiments. The backend uses a pre-trained machine learning model with a TF-IDF vectorizer, while the frontend offers an interactive UI for users to input text or upload CSV files.
 
 ## Features
 
