@@ -11,6 +11,7 @@ This project is a sentiment analysis application built using Python and Flask fo
 - Generate a bar graph of sentiment distribution
 
 ## Directory Structure
+```
 Sentiment-Analysis/
 ├── .vercel/                    # Configuration files for Vercel deployment
 ├── gradient-ui/                # Frontend code built with Next.js
@@ -25,7 +26,22 @@ Sentiment-Analysis/
 ├── model_info.txt              # Information about the sentiment model
 ├── requirements.txt            # Python dependencies
 └── sentiment_model.joblib      # Serialized sentiment analysis model
+```
 
+```
+Sentiment-Analysis/gradient-ui/
+├── public/                     # Static assets like images, fonts, etc.
+├── src/
+│   ├── components/             # Reusable React components
+│   ├── pages/                  # Page components corresponding to routes
+│   ├── styles/                 # CSS or SCSS files for styling
+│   ├── utils/                  # Utility functions and helpers
+│   └── ...                     # Other directories as needed
+├── .gitignore                  # Specifies files to be ignored by Git
+├── package.json                # NPM dependencies and scripts
+├── README.md                   # Documentation specific to the frontend
+└── next.config.js              # Next.js configuration file
+```
 
 ## Requirements
 
