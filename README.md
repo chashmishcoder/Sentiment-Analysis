@@ -135,7 +135,7 @@ curl -X POST -F "text=I love this project!" http://127.0.0.1:5001/predict
 ## UI
 
 ### Home Page
-![Home Page](path/to/home_page_screenshot.png)
+![UI](ui.png)
 
 ### Prediction Page
 ![Prediction Page](path/to/prediction_page_screenshot.png)
