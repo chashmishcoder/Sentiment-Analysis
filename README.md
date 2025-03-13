@@ -137,8 +137,9 @@ curl -X POST -F "text=I love this project!" http://127.0.0.1:5001/predict
 ### Prediction Page
 ![Visualization](./ui_ss.png)
 
+### Demo Video
+[![Watch the video](https://img.youtube.com/vi/9MlLAaXFUiQ/0.jpg)](https://www.youtube.com/watch?v=9MlLAaXFUiQ)
 
-![Alt Text]([https://i.imgur.com/yourgif.gif](https://imgur.com/a/BQ6EhWe))
 
 
 ## License
